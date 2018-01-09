@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	img{
+		position: absolute;
+	}
+	.imag1{
+		top: 50px;
+		left: 10px
+	}
+	.imag2{
+		top: 50px;
+		right: 10px
+	}
+	div{
+		width: 800px;
+		margin: 100px auto;
+		text-align: center;
+		font: 500 30px/35px 'simsun';
+		color: red;
+	}
+</style>
+<script src="myTool.js"></script>
+<script>
+	window.onload = function(){
+
+			//需求：屏幕滚动多少，两侧的图片联动向下移动等距离。
+            //步骤：
+            //1.老三步
+            //2.获取被卷去的头部的值
+            //3.移动两个盒子。（缓动移动）
+            
+			var img1 = document.getElementsByTagName("img")[0];
+			var img2 = document.getElementsByTagName("img")[1];
+			var div = document.getElementsByTagName("div")[0];
+
+			window.onscroll = function(){
+				var val = scroll().top + 50;
+				animate(img1,val);
+				animate(img2,val);
+			}
+	}
+</script>
+</head>
+    <body>
+    	<img class="imag1" src="08image/aside.jpg" alt="" />
+    	<img class="imag2" src="08image/aside.jpg" alt="" />
+    	<div>
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    		鹅鹅鹅，曲项向天歌。白毛浮绿水，红掌拨清波。<br />
+    	</div>
+    </body>
+</html>

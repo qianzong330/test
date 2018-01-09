@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	div{
+		position: absolute;
+        top: 40px;
+        left: 10px;
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+	}
+</style>
+<script>
+	window.onload = function(){
+		var btnArr = document.getElementsByTagName("button");
+		var box = document.getElementsByTagName("div")[0];
+		btnArr[0].onclick = function(){
+			/*//运动到400
+			var target = 400;
+			var leader = 0;
+			//要用定时器，先清定时器
+			clearInterval(btnArr[0].timer);
+			timer = setInterval(function(){
+				var step = (target-leader)/10;
+				step=(step>0)?(Math.ceil(step)):(Math.floor(step));
+				leader=leader+step;
+				box.style.left = leader + "px";
+				if(Math.abs(target-leader)-Math.abs(step)<0){
+					box.style.left = target + "px";
+					clearInterval(timer);
+				}
+			},25);*/
+			
+			animate(box,400,"left");
+		}
+		btnArr[1].onclick = function(){
+			//宽度变为400
+			/*var target = 400;
+			var leader = parseInt(getStyle(box,"width"));
+			//要用定时器，先清定时器
+			clearInterval(btnArr[0].timer);
+			timer = setInterval(function(){
+				var step = (target-leader)/10;
+				step=(step>0)?(Math.ceil(step)):(Math.floor(step));
+				leader=leader+step;
+				box.style.width = leader + "px";
+				if(Math.abs(target-leader)-Math.abs(step)<0){
+					box.style.width = target + "px";
+					clearInterval(timer);
+				}
+			},25);*/
+			
+			animate(box,400,"width");
+		}
+
+		function animate(ele,target,str){
+			//要用定时器，先清定时器
+			clearInterval(ele.timer);
+			timer = setInterval(function(){
+				var leader = parseInt(getStyle(ele,str)) || 0;
+				var step = (target-leader)/10;
+				step=(step>0)?(Math.ceil(step)):(Math.floor(step));
+				leader=leader+step;
+				ele.style[str] = leader + "px";
+				if(Math.abs(target-leader)-Math.abs(step)<=0){
+					ele.style[str] = target + "px";
+					clearInterval(timer);
+				}
+			},25);
+		}
+
+
+		//兼容方法获取元素样式
+        function getStyle(ele,attr){
+            if(window.getComputedStyle){
+                return window.getComputedStyle(ele,null)[attr];
+            }
+            return ele.currentStyle[attr];
+        }
+
+	}
+</script>
+</head>
+    <body>
+    	<button>运动到400</button>
+    	<button>宽度变为400</button>
+    	<div></div>
+    </body>
+</html>

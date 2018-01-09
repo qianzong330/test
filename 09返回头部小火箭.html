@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	img{
+		position: absolute;
+		bottom: 25px;
+		right: 20px;
+		cursor: pointer;
+		display: none;
+	}
+	div{
+		width: 600px;
+		color: red;
+		margin: 100px auto;
+		text-align: center;
+		font: 500 26px/35px 'simsun';
+	}
+	.fixed{
+		position: fixed;
+		bottom: 35px;
+		right:30px;
+	}
+</style>
+<script src="myTool.js"></script>
+<script>
+	window.onload = function(){
+		//需求：被卷去的头部超过300显示小火箭，然后点击小火箭屏幕缓慢移动到最顶端。
+        //难点：我们以前是移动盒子，现在是移动屏幕，我们没有学过如何移动屏幕。
+        //技术点：window.scrollTo(x,y);浏览器显示区域跳转到指定的坐标
+		var img = document.getElementsByTagName("img")[0];
+		var div = document.getElementsByTagName("div")[0];
+		window.onscroll = function(){
+			if(scroll().top>300){
+				img.style.display = "block";
+				img.className = "fixed";
+			}else{
+				img.style.display = "none";
+			}
+			//每次移动滚动条的时候都给leader赋值，模拟leader获取距离顶部的距离
+			leader = scroll().top;
+		}
+		var timer = null;
+		var target = 0;
+		var leader = 0;//显示自身区域所在的位置
+		img.onclick = function(){
+			//window.scrollTo(0,0);//瞬间移动，不是我想要的,但可以利用这个方法的Y坐标的变化来使得屏幕缓动运动到最顶端（利用我们的缓动动画的封装函数）
+			//要用定时器，先清定时器
+			clearInterval(timer);
+
+			timer = setInterval(function(){
+				var step = (target-leader)/10;
+				//step = (step>0)?(Math.ceil(step)):(Math.floor(step));
+				//二次处理步长
+                step = step>0?Math.ceil(step):Math.floor(step);
+				leader = leader + step;
+				//显示区域移动
+				window.scrollTo(0,leader);
+				//清除定时器
+        		if(leader === 0){
+        			console.log(2);
+			        clearInterval(timer);
+       			 }
+			},10);
+		}
+
+
+	}
+</script>
+</head>
+    <body>
+    	<img src="09image/Top.jpg" alt="" />
+    	<div>
+    		我是老大！！！！<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+			借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+			借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+			借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    		借问酒家何处有，牧童遥指杏花村。<br />
+    	</div>
+    </body>
+</html>

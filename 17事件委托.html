@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	li{
+		background-color: pink;
+		margin: 3px;
+	}
+</style>
+<script>
+	window.onload = function(){
+		var btn = document.getElementsByTagName("button")[0];
+		var ul = document.getElementsByTagName("ul")[0];
+		var liArr = ul.children;
+
+		/*for(var i=0; i<liArr.length; i++){
+			liArr[i].onclick = function(){
+				alert(1);
+			}
+		}*/
+		btn.onclick = function(){
+			for(var i=0; i<4; i++){
+				var newLi = document.createElement("li");
+				var newA = document.createElement("a");
+				newLi.innerHTML = "移民li";
+				newA.href = "#";
+				newA.innerHTML = "移民a";
+				ul.appendChild(newLi);
+				ul.appendChild(newA);
+			}
+		}
+
+		//普通的事件绑定，没有办法为新创建的元素绑定事件。所以我们要使用冒泡的特性，事件委托！
+    	//事件委托
+		ul.onclick = function(event){
+			event = event || window.event;
+			var aaa = event.target || event.srcElement;
+			 console.log(aaa);
+			if(aaa.tagName === "LI"){
+				alert(1);
+			}
+		}
+
+	}
+</script>
+</head>
+    <body>
+    	<button>创建4个移民li</button>
+    	<ul>
+    		<li>土著li</li>
+    		<a href="#">土著a</a>
+    		<li>土著li</li>
+    		<li>土著li</li>
+    		<a href="#">土著a</a>
+    		<li>土著li</li>
+    	</ul>
+    </body>
+</html>

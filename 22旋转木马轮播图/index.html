@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	.wrap{
+		width: 1200px;
+		margin: 100px;
+	}
+    .box{
+        height: 500px;
+        position: relative;
+    }
+    ul{
+        list-style: none;
+    }
+    li{
+        position: absolute;
+        left: 200px;
+        top: 0;
+    }
+    li a{
+        cursor: pointer;
+        text-decoration: none;
+        outline: none;
+    }
+    li img{
+        width: 100%;
+        border: 0;
+        vertical-align: top;
+    }
+    .arrow{
+        opacity: 0;
+    }
+    .pro,.next{
+        width:76px;
+        height:112px;
+        position: absolute;
+        top:50%;
+        margin-top:-56px;
+        background: url(prev.png) no-repeat;
+        z-index: 99;
+    }
+    .next{
+        right:0;
+        background-image: url(next.png);
+    }
+</style>
+<script src="myTool.js"></script>
+<script src="index.js"></script>
+</head>
+    <body>
+    	<div class="wrap">
+    		<div class="box">
+    			<ul>
+    				<li><a href="#"><img src="slidepic1.jpg" alt="" /></a></li>
+    				<li><a href="#"><img src="slidepic2.jpg" alt="" /></a></li>
+    				<li><a href="#"><img src="slidepic3.jpg" alt="" /></a></li>
+    				<li><a href="#"><img src="slidepic4.jpg" alt="" /></a></li>
+    				<li><a href="#"><img src="slidepic5.jpg" alt="" /></a></li>
+    			</ul>
+    			<div class="arrow">
+    				<span class="pro"></span>
+    				<span class="next"></span>
+    			</div>
+    		</div>
+    	</div>
+    </body>
+</html>

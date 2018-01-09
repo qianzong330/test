@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	body{
+		background: rgba(0,0,0,0.8);
+	}
+	#box{
+		width: 800px;
+		height: 42px;
+		border-radius: 8px;
+		position: relative;
+		margin: 100px auto;
+		background: #fff url("06image/wifi.png") right center no-repeat;
+	}
+	ul{
+		width: 800px;
+		list-style: none;
+		position: absolute;
+	}
+	li{
+		float: left;
+		width: 83px;
+		height: 42px;
+		text-align: center;
+		font: 500 16px/42px 'simsun';
+		cursor: pointer;
+	}
+	span{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 83px;
+		height: 42px;
+		background: url("06image/cloud.gif") no-repeat;
+	}
+</style>
+<script>
+	window.onload = function(){
+		var span = document.getElementsByTagName("span")[0];
+		var ul = document.getElementsByTagName("ul")[0];
+		var liArr = ul.children;
+		var step = liArr[0].offsetWidth;
+
+		//计数器
+		var count=0;
+		for(var i=0; i<liArr.length; i++){
+			liArr[i].index = i;
+			liArr[i].onmouseover = function(){
+				animate(span,this.index*step);
+			}
+
+			liArr[i].onmouseout = function(){
+				animate(span,count*step);
+			}
+			//点击事件，记录功能
+			//需要一个计数器，每次点击以后把所以只记录下来
+            //因为onmouseout事件要用到这个计数器，所以应该是一个全局变量
+			liArr[i].onclick = function(){
+				count = this.index;
+				animate(span,count*step);
+			}
+		}
+
+
+		//封装缓动动画函数
+		function animate(ele,target){
+			clearInterval(ele.timer);	
+			ele.timer = setInterval(function(){
+				var step = (target - ele.offsetLeft)/10;		
+				step = (step>0)?(Math.ceil(step)):(Math.floor(step));		
+				ele.style.left = ele.offsetLeft + step + "px";
+				if(Math.abs(target-ele.offsetLeft)<Math.abs(step)){		
+					ele.style.left = target + "px";
+					clearInterval(ele.timer);
+				}
+			},8);
+		}
+
+	}
+</script>
+</head>
+    <body>
+    	<div id="box">
+    		<span></span>
+    		<ul>
+    			<li>首页新闻</li>
+	            <li>活动策划</li>
+	            <li>师资力量</li>
+	            <li>企业文化</li>
+	            <li>招聘信息</li>
+	            <li>公司简介</li>
+	            <li>上海校区</li>
+	            <li>广州校区</li>
+    		</ul>
+    	</div>
+    </body>
+</html>

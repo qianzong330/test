@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	#box{
+		width: 300px;
+		height: 210px;
+		background: pink;
+		margin: 100px auto;
+		text-align: center;
+		font: 500 18px/50px 'simsun';
+		padding-top: 90px;
+		cursor: pointer;
+	}
+</style>
+<script src="myTool.js"></script>
+<script>
+	window.onload = function(){
+		var box = document.getElementById("box");
+
+		box.onmousemove = function(event){
+			event = event || window.event;
+			//获取鼠标在整个页面中的位置
+			var pagey = event.pageY || scroll().top + event.clientY;
+			var pagex = event.pageX || scroll().left + event.clientX;
+			//获取盒子在整个页面中的位置
+			var boxy = box.offsetTop;
+			var boxx = box.offsetLeft;
+			//鼠标在整个页面中的位置减去盒子在整个页面中的位置即为鼠标在盒子中的坐标
+			var xx = pagex - boxx;
+			var yy = pagey - boxy;
+
+			box.innerHTML = "鼠标在盒子中的X坐标："+xx+"px;<br />鼠标在盒子中的Y坐标："+yy+"px;<br />";
+
+		}
+	}
+</script>
+</head>
+    <body>
+    	<div id="box">
+    		
+    	</div>
+    </body>
+</html>

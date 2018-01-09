@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding:0;
+	}
+	#box{
+		width: 300px;
+		height: 500px;
+		border: 1px solid green;
+		text-align: center;
+		position: relative;
+		top: 30px;
+		left: 30px;
+		overflow: hidden;
+	} 
+	.content{
+		padding: 10px;
+	}
+	.scroll{
+		width: 20px;
+		height: 502px;
+		background-color: #ccc;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.bar{
+		width: 20px;
+		border-radius: 10px;
+		background-color: green;
+		cursor: pointer;
+		position: absolute;
+		top: 0;
+	}
+</style>
+<script src="myTool.js"></script>
+<script>
+	window.onload = function(){
+		//需求：模拟滚动条，鼠标拖动滚动条，滚动条动，而且内容等比例联动。
+        //步骤：
+        //1.根据内容和盒子的比例确定bar的高。
+        //2.绑定事件（鼠标按下，然后移动）
+        //3.鼠标移动，bar联动
+        //4.内容等比例联动
+
+         //1.根据内容和盒子的比例确定bar的高。
+        //内容的高/盒子的高 = scroll的高/bar的高
+        //bar的高 = 盒子的高*scroll的高/内容的高
+        var box = document.getElementById("box");
+		var content = document.getElementsByClassName("content")[0];
+		var scroll = document.getElementsByClassName("scroll")[0];
+		var bar = document.getElementsByClassName("bar")[0];
+
+		var scale = box.offsetHeight/content.offsetHeight;
+		var barHeight = scale*scroll.offsetHeight;
+		bar.style.height = barHeight + "px";
+
+		//给滚动条添加事件
+		bar.onmousedown = function(event){
+			event = event || window.event;
+			var pagey = event.pageY || scroll().top + event.clientY;
+			var y = pagey - bar.offsetTop;
+
+			document.onmousemove = function(event){
+				event = event || window.event;
+				var yy = event.pageY || scroll().top + event.clientY;
+				yy = yy-y;
+				if(yy<0){
+					yy=0;
+				}
+				if(yy>scroll.offsetHeight-bar.offsetHeight){
+					yy=scroll.offsetHeight-bar.offsetHeight;
+				}
+				bar.style.top = yy + "px";
+
+				//4.内容等比例联动
+                //高级比例：  内容走的距离/bar走的距离 = （内容的高-大盒子的高）/（scroll的高-bar的高）
+                var s = yy *(content.offsetHeight-box.offsetHeight)/(scroll.offsetHeight-bar.offsetHeight);
+                //s赋值给content。通过marginTop负值移动content
+                content.style.marginTop = -s+"px";
+                //让被选文字清除。
+                window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+			}
+
+		}
+		bar.onmouseup = function(){
+			document.onmousemove=null;
+		}
+
+
+	}
+</script>
+</head>
+    <body>
+    	<div id="box">
+    		<div class="content">
+    			---------GO-----------  <br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+				白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+    			白日依山尽，黄河入海流。<br />
+    			欲穷千里目，更上一层楼。<br />
+				----------END---------  <br />
+    		</div>
+    		<div class="scroll">
+    			<div class="bar"></div>
+    		</div>
+    	</div>
+    </body>
+</html>

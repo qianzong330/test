@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	#all{
+		width: 520px;
+		height: 280px;
+		border: 1px solid black;
+		padding: 5px;
+		margin: 100px auto;
+	}
+	.box{
+		width: 520px;
+		height: 280px;
+		position: relative;
+		left: 0;
+		overflow: hidden;
+	}
+	ul{
+		list-style: none;
+		width: 500%;
+		position: absolute;
+		left: 0;
+	}
+	li{
+		float: left;
+	}
+	.square{
+		display: none;
+	}
+	.square span{ 
+		width:40px; 
+		height:40px; 
+		position:absolute; 
+		left:5px; top:50%; 
+		margin-top:-20px; 
+		background:#000; 
+		cursor:pointer; 
+		line-height:40px; 
+		text-align:center; 
+		font-weight:bold; 
+		font-family:'黑体'; 
+		font-size:30px; 
+		color:#fff; 
+		opacity:0.3; 
+		border:1px solid #fff;
+	}
+	.square .right{
+		right:5px; left:auto;
+	}
+</style>
+<script>
+	window.onload = function(){
+		var box = document.getElementsByClassName("box")[0];
+		var imageWidth = box.offsetWidth;
+		var ul = box.children[0];
+		var squ = box.children[1];
+		var spanArr =squ.children;
+
+		//点亮盒子
+		box.onmouseover = function(){
+			squ.style.display = "block";
+		}
+
+		box.onmouseout = function(){
+			squ.style.display = "none";
+		}
+
+		//点击盒子，切换图片
+		//点击左边，向左滑动
+		var index = 0;
+
+		spanArr[0].onclick = function(){
+			index--;
+			if(index<0){
+				index=0;
+				alert("第一张！");
+			}
+			animate(ul,-index*imageWidth)
+		}
+
+		//点击右边，向右滑动
+		spanArr[1].onclick = function(){
+			index++;
+			if(index>4){
+				index = 4;
+				alert("到头了!");
+			}
+			animate(ul,-index*imageWidth)
+		}
+
+
+
+		//封装函数
+		function animate(ele,target){		
+        	clearInterval(ele.timer);
+        	var speed = target>ele.offsetLeft?10:-10;
+			ele.timer = setInterval(function(){
+				var val = target - ele.offsetLeft;
+				ele.style.left = ele.offsetLeft + speed + "px";
+				if(Math.abs(val)<10){
+					ele.style.left = target + "px";
+					clearInterval(ele.timer);
+				}
+			},10);
+		}
+
+
+	}
+</script>
+</head>
+    <body>
+    	<div id="all">
+    		<div class="box">
+    			<ul>
+    				<li><img src="03image/1.jpg" alt="" /></li>
+    				<li><img src="03image/2.jpg" alt="" /></li>
+    				<li><img src="03image/3.jpg" alt="" /></li>
+    				<li><img src="03image/4.jpg" alt="" /></li>
+    				<li><img src="03image/5.jpg" alt="" /></li>
+    			</ul>
+    			<div class="square">
+    				<span class="left"><</span>
+					<span class="right">></span>
+    			</div>
+				
+    			
+    		</div>
+    	</div>
+    </body>
+</html>

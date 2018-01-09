@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	#box{
+		width: 350px;
+		height: 350px;
+		border: 1px solid #ccc;
+		margin: 100px;
+		position: relative;
+	}
+	.small{
+		position: relative;
+	}
+	.mask{
+		width: 175px;
+		height: 175px;
+		background: rgba(225,225,0,0.4);
+		position: absolute;
+		left: 0;
+		top: 0;
+		cursor: move;
+		display: none;
+	}
+	.big{
+		width: 400px;
+		height: 400px;
+		border: 1px solid #ccc;
+		position: absolute;
+		top: 0;
+		left: 360px;
+		overflow: hidden;
+		display: none;
+	}
+	img{
+		vertical-align: top;
+	}
+</style>
+<script src="myTool.js"></script>
+<script>
+	window.onload = function(){
+		//需求：鼠标放到小盒子上，让大盒子里面的图片和我们同步等比例移动。
+		var box = document.getElementById("box");
+		var smallBox = box.children[0];
+		var maskBox = smallBox.children[1];
+		var bigBox = box.children[1];
+		var bigImg = bigBox.children[0];
+
+		//鼠标进入
+		smallBox.onmouseenter = function(){
+			maskBox.style.display="block";
+			bigBox.style.display="block";
+		}
+		smallBox.onmouseleave = function(){
+			maskBox.style.display="none";
+			bigBox.style.display="none";
+		}
+
+		//只要鼠标进入small盒子只要移动1像素，mask盒子也要跟着鼠标移动，所以事件源是small，绑定的事件是onmuseover
+		smallBox.onmousemove = function(event){
+			event = event||window.event;
+			//先获取鼠标在页面中的坐标
+			var mouBodyx = event.pageX || scroll().left + event.clientX;
+			var mouBodyy = event.pageY || scroll().top + event.clientY;
+			//鼠标在small盒子中的坐标，让鼠标在黄盒子最中间，减去黄盒子宽高的一半
+			var x = mouBodyx - box.offsetLeft - maskBox.offsetWidth/2;
+			var y = mouBodyy - box.offsetTop - maskBox.offsetHeight/2;
+			//限制黄盒子的范围
+            //left取值为大于0，小盒子的宽-mask的宽。
+            if(x<0){
+            	x=0;
+            }
+            if(x>smallBox.offsetWidth-maskBox.offsetWidth){
+            	x=smallBox.offsetWidth-maskBox.offsetWidth;
+            }
+            if(y<0){
+            	y=0;
+            }
+            if(y>smallBox.offsetHeight-maskBox.offsetHeight){
+            	y=smallBox.offsetHeight-maskBox.offsetHeight;
+            }
+			maskBox.style.top = y + "px";
+			maskBox.style.left = x + "px";
+
+			//等比例移动大图片
+			var scale = bigImg.offsetWidth/smallBox.offsetWidth;
+			var bigx = scale*x;
+			var bigy = scale*y;
+			bigImg.style.marginLeft = -bigx + "px";
+			bigImg.style.marginTop = -bigy + "px";
+		}
+
+	}
+</script>
+</head>
+    <body>	
+    	<div id="box">
+    		<div class="small">
+				<img src="13image/smallImg.jpg" alt="" />
+				<div class="mask"></div>
+			</div>
+			<div class="big">
+				<img src="13image/bigImg.jpg" alt="" />
+			</div> 
+    	</div>			
+    </body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	#box{
+		width: 100%;
+		background: url("images/box.png") center top no-repeat;
+		height: 7573px;
+		margin: 0 auto;
+	}
+	.header{
+		width: 100%;
+		background: url("images/r1.png") center top no-repeat;
+		height: 45px;
+		margin: 0 auto;
+	}
+	.close{
+		width: 55px;
+		height: 22px;
+		position: absolute;
+		top:10px;
+		right: 175px;
+		cursor: pointer;
+	}
+	img{
+		position: absolute;
+	}
+	.image1{
+		top: 150px;
+		left: 10px;
+	}
+	.image2{
+		top: 150px;
+		right: 10px;
+	}
+	.toTopImg{
+		width: 50px;
+		height: 50px;
+		background: url("images/toTop.png") center top no-repeat;
+		display: none;
+		cursor: pointer;
+	}
+</style>
+<script src="myTool.js"></script>
+<script>
+	window.onload = function(){
+		var header = document.getElementsByClassName("header")[0];
+		var headWidth = header.offsetHeight;
+		var close = header.children[0];
+		var toTop = document.getElementsByClassName("toTopImg")[0];
+		var imgArr = document.getElementsByTagName("img");
+
+		//关闭头部登陆栏
+		close.onclick = function(){
+			var bool = window.confirm("你真的不想要吗?");
+			if(bool){
+				header.parentNode.removeChild(header);
+			}
+		}
+
+		//下拉，头部项目栏定格事件
+		window.onscroll = function(){
+			if(scroll().top>headWidth){
+				header.style.position = "fixed";
+			}
+
+			if(scroll().top>500){
+				toTop.style.display = "block";
+				toTop.style.position = "fixed";
+				toTop.style.bottom=20 + "px";
+				toTop.style.right = 20 + "px";
+			}else{
+				toTop.style.display = "none";
+			}
+			val = scroll().top;
+			//根据屏幕的下拉长度,两侧广告栏缓动
+			animate(imgArr[0],val + 150);
+			animate(imgArr[1],val + 150);
+		}
+
+		//点击返回顶部的图片，返回顶部
+		var timer = null;
+		var target = 0;
+		var val = 0;//显示自身区域所在的位置
+		toTop.onclick = function(){
+			//window.scrollTo(0,0);//瞬间移动，不是我想要的,但可以利用这个方法的Y坐标的变化来使得屏幕缓动运动到最顶端（利用我们的缓动动画的封装函数）
+			//要用定时器，先清定时器
+			clearInterval(timer);
+			timer = setInterval(function(){
+				var step = (target-val)/10;
+				//step = (step>0)?(Math.ceil(step)):(Math.floor(step));
+				//二次处理步长
+                step = step>0?Math.ceil(step):Math.floor(step);
+				val = val + step;
+				//显示区域移动
+				window.scrollTo(0,val);
+				//清除定时器
+        		if(val === 0){
+        			console.log(2);
+			        clearInterval(timer);
+       			 }
+			},10);
+		}
+		
+	}
+</script>
+</head>
+    <body>
+    	<div id="box">
+    		<div class="header">
+    			<div class="close"></div>
+    		</div>
+    		<div class="toTopImg"></div>
+    		<img class="image1" src="images/r2_c1.png" alt="" />
+    		<img class="image2" src="images/r2_c2.png" alt="" />
+    	</div>
+    </body>
+</html>

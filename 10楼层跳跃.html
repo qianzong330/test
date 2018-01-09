@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	body,html{
+		height: 100%;
+	}
+	ul{
+		list-style: none;
+		height: 100%;
+		width: 100%;
+		position: absolute;
+	}
+	ul li{
+		height: 100%;
+	}
+	ol{
+		list-style: none;
+		position: fixed;
+		top: 150px;
+		left: 50px;
+	}
+	ol li{
+		width: 60px;
+		height: 35px;
+		border: 1px solid black;
+		text-align: center;
+		font: 500 16px/35px 'simsun';
+		margin: -1px;
+		cursor: pointer;
+	}
+</style>
+<script src="myTool.js"></script>
+<script>
+	window.onload = function(){
+		//需求：
+		//1，ul的每个li对应ol的相同索引值的li是同样的颜色
+		//2，点击ol的li标签，可视区域缓动到对应的ul的li标签
+		var ul = document.getElementsByTagName("ul")[0];
+		var ol = document.getElementsByTagName("ol")[0];
+		var ulLiArr = ul.children;
+		var olLiArr = ol.children;
+		//定义颜色数组，给ul,ol的li上色
+		var arrColor = ["pink","orange","green","purple","yellow",];
+		//计数器
+		var index = 0;
+		//定时器
+		var timer = null;
+		//要跳转的目标位置
+		var target = 0;
+		//自身可视区域的位置
+		var leader = 0;
+		for(var i=0; i<olLiArr.length; i++){
+			olLiArr[i].index = i;
+
+			olLiArr[i].style.backgroundColor = arrColor[i];
+			ulLiArr[i].style.backgroundColor = arrColor[i];
+
+			//给ol的每个Li绑定点击事件
+			olLiArr[i].onclick = function(){
+				var ele = ulLiArr[this.index];
+				target = ele.offsetTop;	
+				leader = scroll().top;	
+				//要用定时器，先清定时器
+				clearInterval(timer);
+				timer = setInterval(function(){
+					var step = (target-leader)/10;
+					step = (step>0)?(Math.ceil(step)):(Math.floor(step));
+					leader = leader + step;
+					window.scrollTo(0,leader);
+					if(Math.abs(target-leader)<=Math.abs(step)){
+						window.scrollTo(0,target);
+					}
+				},10);
+			}
+
+		}
+
+	 /*//4.用scroll事件模拟盒子距离最顶端的距离。
+        window.onscroll = function () {
+            //每次屏幕滑动，把屏幕卷去的头部赋值给leader,模拟获取显示区域距离顶部的距离
+            leader = scroll().top;
+        }*/
+
+	}
+</script>
+</head>
+    <body>
+    	<ul>
+    		<li>鞋子区域</li>
+    		<li>袜子区域</li>
+    		<li>裙子区域</li>
+    		<li>裤子区域</li>
+    		<li>帽子区域</li>
+    	</ul>
+    	<ol>
+    		<li>鞋子</li>
+    		<li>袜子</li>
+    		<li>裙子</li>
+    		<li>裤子</li>
+    		<li>帽子</li>
+    	</ol>
+    </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	#box{
+		height: 300px;
+		background-color: #ddd;
+		margin: 0;
+		padding: 5px;
+		position: relative;
+	}
+	button{
+		width: 100px;
+		margin: 5px;
+	}
+	.box1{
+		width: 100px;
+		height: 100px;
+		background-color: pink;
+		position: absolute;
+		left: 0;
+	}
+	.box2{
+		width: 100px;
+		height: 100px;
+		background-color: yellow;
+		position: absolute;
+		left: 0;
+		top: 150px;
+	}
+</style>
+<script>
+	window.onload = function(){
+		var btnArr = document.getElementsByTagName("button");
+		var box1 = document.getElementsByClassName("box1")[0];
+		var box2 = document.getElementsByClassName("box2")[0];
+
+		
+		//运动到200
+		btnArr[0].onclick = function(){
+			/*timer = setInterval(function(){
+				box1.style.left = box1.offsetLeft + 10 + "px";
+				if(box1.offsetLeft === 200){
+					clearInterval(timer);
+				}
+			},30);*/
+			
+			animate(box1,200);
+			animate(box2,200);
+		}
+		//运动到400
+		btnArr[1].onclick = function(){
+			/*timer = setInterval(function(){
+				box1.style.left = box1.offsetLeft + 10 + "px";
+				if(box1.offsetLeft === 400){
+					clearInterval(timer);
+				}
+			},30);*/
+			
+			animate(box1,400);
+			animate(box2,400);
+		}
+		//回到原点
+		btnArr[2].onclick = function(){
+			animate(box1,0);
+			animate(box2,0);
+		}
+
+		//封装函数
+		function animate(ele,target){
+			//BUG1：点击多次以后，越来越快：每次只能开一个定时器。（执行定时器前面，先清楚定时器）
+        	//要用定时器，先清定时器。
+        	//一个盒子只能有一个定时器，这样儿的话，不会和其他盒子出现定时器冲突
+        	//而定时器本身讲成为盒子的一个属性
+        	clearInterval(ele.timer);
+        	//BUG2:无法返回。 原因就是步长不能为恒定值。
+        	// 传递的目标值如果比当前值大，那么步长为+10；
+        	// 传递的目标值如果比当前值小，那么步长为-10；
+        	var speed = target>ele.offsetLeft?10:-10;
+			ele.timer = setInterval(function(){
+        	//BUG3:二次点击不停止问题。
+        	//如果当前值===目标值，那么先判断之间的距离还有多少，如果小于步长，那么就别走了，马上清除定时器
+				var val = target - ele.offsetLeft;
+				ele.style.left = ele.offsetLeft + speed + "px";
+				if(Math.abs(val)<10){
+					ele.style.left = target + "px";
+					clearInterval(ele.timer);
+				}
+			},30);
+		}
+
+
+	}
+</script>
+</head>
+    <body>
+    	<div id="box">
+    		<button>运动到200</button>
+    		<button>运动到400</button>
+    		<button>回到原点</button>
+    		<div class="box1"></div>
+    		<div class="box2"></div>
+    	</div>
+    </body>
+</html>

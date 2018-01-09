@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	body{
+		background: #ccc;
+	}
+	label{
+		width: 40px;
+		display: inline-block;
+	}
+	.box{
+		border: 1px solid #ccc;
+		margin: 100px auto;
+		width: 350px;
+		padding: 50px;
+		line-height: 40px;
+		background: #efefef;
+	}
+	span{
+		margin-left: 30px;
+		font-size: 12px;
+		padding: 2px 15px 0;
+		color: #ccc;
+	}
+	.wrong{
+		color: red;
+		background: url("error.png") no-repeat;
+	}
+	.right{
+		color: green;
+		background: url("right.png") no-repeat;
+	}
+	.pwd{
+		width: 220px;
+		height: 20px;
+		background: url("strong.jpg") no-repeat;
+		
+	}
+	.str1{
+		background-position: 0 -20px;
+	}
+	.str2{
+		background-position: 0 -40px;
+	}
+	.str3{
+		background-position: 0 -60px;
+	}
+	.str4{
+		background-position: 0 -80px;
+	}
+</style>
+<script src="index.js"></script>
+</head>
+    <body>
+    	<div class="box">
+    		<label for="ipt1">Q Q:</label><input id="ipt1" type="text" /><span>输入正确的QQ号码</span><br />
+    		<label for="ipt2">手机:</label><input id="ipt2" type="text" /><span>输入13位手机号码</span><br />
+    		<label for="ipt3">邮箱:</label><input id="ipt3" type="text" /><span>输入正确邮箱</span><br />
+    		<label for="ipt4">座机:</label><input id="ipt4" type="text" /><span>输入您的座机</span><br />
+    		<label for="ipt5">账号</label><input id="ipt5" type="text" /><span>输入您的账号</span><br />
+    		<label for="ipt6">密码</label><input id="ipt6" type="text" /><span>输入您的密码</span><br />
+    		<div class="pwd" id="password"></div>
+    	</div>
+    </body>
+</html>

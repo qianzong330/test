@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	.box{
+		width: 100px;
+		height: 100px;
+		position: absolute;
+		left: 0;
+		background-color: pink;
+	}
+</style>
+</head>
+    <body>
+    	<button>运动到200</button>
+    	<button>运动到400</button>
+    	<button>返回到原点</button>
+    	<div class="box"></div>
+    	<script>
+    		var btnArr = document.getElementsByTagName("button");
+    		var box = document.getElementsByClassName("box")[0];
+
+    		btnArr[0].onclick = function(){
+    			animate(box,200);
+    		}
+    		btnArr[1].onclick = function(){
+    			animate(box,400);
+    		}
+    		btnArr[2].onclick = function(){
+    			animate(box,0);
+    		}
+
+    		//封装缓动动画函数
+    		function animate(ele,target){
+    			//要用定时器，先清定时器
+       			 //一个萝卜一个坑儿，一个元素对应一个定时器
+    			clearInterval(ele.timer);
+    			//定义定时器
+    			ele.timer = setInterval(function(){
+    				//获取步长
+           		    //步长应该是越来越小的，缓动的算法
+    				var step = (target - box.offsetLeft)/10;
+    				//对步长进行二次加工(大于0向上取整,小于0项下取整)
+    				step = (step>0)?(Math.ceil(step)):(Math.floor(step));
+    				//动画原理： 目标位置 = 当前位置 + 步长
+    				box.style.left = box.offsetLeft + step + "px";
+    				console.log(1);
+    				if(Math.abs(target-box.offsetLeft)<Math.abs(step)){
+    					 //处理小数赋值
+    					box.style.left = target + "px";
+    					clearInterval(ele.timer);
+    				}
+    			},30);
+    		}
+
+    	</script>
+    </body>
+</html>

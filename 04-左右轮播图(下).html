@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	#all{
+		width: 500px;
+		height: 200px;
+		border: 1px solid #ccc;
+		padding: 5px;
+		margin: 100px auto;
+	}
+	.box{
+		width: 500px;
+		height: 200px;
+		position: absolute;
+		overflow: hidden;
+	}
+	ul,ol{
+		list-style:none;
+		position: absolute;
+	}
+	ul{
+		width: 600%;
+		left: 0;
+	}
+	ul li{
+		float: left;
+	}
+	.lrAll{
+		display: none;
+	}
+	.lrAll span{ 
+		width:40px; 
+		height:40px; 
+		position:absolute; 
+		left:5px; top:50%; 
+		margin-top:-20px; 
+		background:#000; 
+		cursor:pointer; 
+		line-height:40px; 
+		text-align:center; 
+		font-weight:bold; 
+		font-family:'黑体'; 
+		font-size:30px; 
+		color:#fff; 
+		opacity:0.3; 
+		border:1px solid #fff;
+	}
+	.lrAll .right{
+		right:5px; left:auto;
+	}
+
+	ol{
+		bottom: 8px;
+		right: 10px;
+	}
+	ol li{
+		width: 20px;
+		text-align: center;
+		border: 1px solid #ccc;
+		background-color: #fff;	
+		margin: 10px;
+		display: inline-block;
+		cursor: pointer;
+	}
+	.current{
+		background-color: darkorange;
+		color: #fff;
+	}
+</style>
+<script>
+	window.onload = function(){
+		//需求：无缝滚动。
+        //思路：赋值第一张图片放到ul的最后，然后当图片切换到第五张的时候
+        //     直接切换第六章，再次从第一张切换到第二张的时候先瞬间切换到
+        //     第一张图片，然后滑动到第二张
+        //步骤：
+        //1.获取事件源及相关元素。（老三步）
+        //2.复制第一张图片所在的li,添加到ul的最后面。
+        //3.给ol中添加li，ul中的个数-1个，并点亮第一个按钮。
+        //4.鼠标放到ol的li上切换图片
+        //5.添加定时器
+        //6.左右切换图片（鼠标放上去隐藏，移开显示）
+
+		var box = document.getElementsByClassName("box")[0];
+		var imagWidth = box.offsetWidth;
+		var myul = box.children[0];
+		var lrAll = box.children[1];
+		var spanArr = lrAll.children;
+		var myol = box.children[2];
+
+	    //2.复制第一张图片所在的li,添加到ul的最后面。
+	    var sixLi = myul.children[0].cloneNode(true);
+	    myul.appendChild(sixLi);
+	    //3.给ol中添加li，ul中的个数-1个，并点亮第一个按钮。
+	    for(var i=0; i<myul.children.length-1; i++){
+	    	var olNewli = document.createElement("li");
+	    	olNewli.innerHTML = i+1;
+	    	myol.appendChild(olNewli);
+	    }
+	    myol.children[0].className = "current";
+		//点亮页数指示盒子
+		for(var i=0; i<myol.children.length; i++){
+			myol.children[i].index = i;
+			myol.children[i].onmouseover = function(){
+				for(var j=0; j<myol.children.length; j++){
+					myol.children[j].className = "";
+				}
+				this.className = "current";
+			//鼠标放到小的方块上的时候索引值和key以及square同步
+				key = square = this.index;
+				animate(myul,-this.index*imagWidth);
+			}
+		}
+
+		//5.添加定时器
+		var timer = setInterval(autoFun,1000);
+		 //固定向右切换图片
+         //两个定时器（一个记录图片，一个记录小方块）
+		var key = 0;
+		var square = 0;
+		function autoFun(){
+			//通过控制key的自增来模拟图片的索引值，然后移动ul
+			key++;
+			if(key>myol.children.length){
+			//图片已经滑动到最后一张，接下来，跳转到第一张，然后在滑动到第二张
+				myul.style.left = 0;
+				key = 1;
+			}
+			animate(myul,-key*imagWidth);
+
+			//通过控制square的自增来模拟小方块的索引值，然后点亮盒子
+            //排他思想做小方块
+            square++;
+            if(square>myol.children.length-1){
+            	square=0;
+            }
+            for(var s=0; s<myol.children.length; s++){
+            	myol.children[s].className="";
+            }
+            myol.children[square].className = "current";
+
+		}
+		//鼠标放到盒子上,点亮左右盒子，停止计时器
+		box.onmouseover = function(){
+			lrAll.style.display = "block";
+			clearInterval(timer);
+		}
+		//鼠标离开,隐藏左右盒子，开始计时器
+		box.onmouseout = function(){
+			lrAll.style.display = "none";
+			setInterval(autoFun,1000);
+		}
+
+		//6.左右切换图片（鼠标放上去显示，移开隐藏）
+		spanArr[0].onclick = function(){
+			 //右侧的和定时器一模一样
+			autoFun();
+		}
+		spanArr[1].onclick = function(){
+			key--;
+			if(key<0){
+				//先移动到最后一张，然后key的值取之前一张的索引值，然后在向前移动
+				myul.style.left = -imagWidth*myol.children.length + "px";
+				key = myol.children.length - 1;
+			}
+			animate(myul,-key*imagWidth)
+			//通过控制square的自增来模拟小方块的索引值，然后点亮盒子
+            //排他思想做小方块
+            square--;
+            //索引值不能大于等于5，如果等于5，立刻变为0；
+            if(square<0){
+            	square = myol.children.length - 1;
+            }
+
+            for(var q=0; q<myol.children.length; q++){
+            	myol.children[q].className="";
+            }
+            myol.children[square].className="current";
+		}
+
+
+		//封装函数
+		function animate(ele,target){		
+        	clearInterval(ele.timer);
+        	var speed = target>ele.offsetLeft?10:-10;
+			ele.timer = setInterval(function(){
+				var val = target - ele.offsetLeft;
+				ele.style.left = ele.offsetLeft + speed + "px";
+				if(Math.abs(val)<10){
+					ele.style.left = target + "px";
+					clearInterval(ele.timer);
+				}
+			},10);
+		}
+
+
+	}
+</script>
+</head>
+    <body>
+    	<div id="all">
+    		<dic class="box">
+    			<ul>
+    				<li><img src="04image/1.jpg" alt="" /></li>
+    				<li><img src="04image/2.jpg" alt="" /></li>
+    				<li><img src="04image/3.jpg" alt="" /></li>
+    				<li><img src="04image/4.jpg" alt="" /></li>
+    				<li><img src="04image/5.jpg" alt="" /></li>
+    			</ul>
+    			<div class="lrAll">
+    				<span class="right">></span>
+    				<span class="left"><</span>
+    			</div>
+    			<ol>
+    				
+    			</ol>
+    		</dic>
+    	</div>
+    </body>
+</html>

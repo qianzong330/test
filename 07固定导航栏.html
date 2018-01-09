@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	img{
+		vertical-align: top;
+	}
+	#navImg{
+		overflow: hidden;
+	}
+	#mainImg{
+		margin: 0 auto;
+		width: 1000px;
+		margin-top: 10px;
+	}
+
+	.fixed{
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+</style>
+
+<!--引入工具js-->
+<script src="myTool.js"></script>
+<script>
+	window.onload = function(){
+		//需求1：当我们滚动界面的时候，被卷曲的头部超过第二个盒子距离顶部的位置，那么直接给第二个盒子加类名.fixed
+        //需求2：当我们滚动界面的时候，被卷曲的头部小于第二个盒子距离顶部的位置，那么直接给第二个盒子取消类名.fixed
+        //步骤：
+        //1.老三步。
+        //2.判断 ，被卷曲的头部的大小
+        //3.满足条件添加类，否则删除类
+        
+		var topImg = document.getElementById("topImg");
+		var topImgHeight = topImg.offsetHeight;
+		var navImg = document.getElementById("navImg");
+		var mainImg = document.getElementById("mainImg");
+		window.onscroll = function(){
+			if(scroll().top>topImgHeight){
+				navImg.className = "fixed";
+				//第二个盒子不占位置了，所以我们给第三个盒子一个上padding占位置，不出现盒子抖动问题
+				mainImg.style.paddingTop = navImg.offsetHeight + "px";
+			}else{
+				navImg.className="";
+				//清零
+				mainImg.style.paddingTop = 0;
+			}
+		}
+	}
+</script>
+</head>
+    <body> 	
+		<div id="topImg"><img src="07image/top.png" alt="" /></div>
+		<div id="navImg"><img src="07image/nav.png" alt="" /></div>
+		<div id="mainImg"><img src="07image/main.png" alt="" /></div>
+    </body>
+</html>

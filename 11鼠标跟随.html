@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>新建网页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="布尔教育 http://www.itbool.com" />
+<style>
+	body{
+		height: 5000px;
+	}
+	img{
+		border: 1px solid #ccc;
+		width: 100px;
+		padding: 10px 0;
+		position: absolute;
+		cursor: pointer;
+	}
+</style>
+<script src="myTool.js"></script>
+<script>
+	window.onload = function(){
+		var img = document.getElementsByTagName("img")[0];
+		var timer = null;
+		var targety=0;var targetx=0;var leadery=0;var leaderx=0;
+		document.onclick = function(event){
+			event = event || window.event;
+			//获取鼠标在屏幕上点击的横纵坐标（也就是图片要跳转的目标位置）
+			targety = event.pageY || scroll().top + event.clientY;
+			targetx = event.pageX || scroll().left + event.clientX;
+			/*//获取图片距离顶部和左侧的距离
+			leadery = img.offsetTop;
+			leaderx = img.offsetLeft;*/
+			targety = targety - (img.offsetHeight)/2;
+			targetx = targetx - (img.offsetWidth)/2;
+
+			//先清定时器
+			clearInterval(timer);
+			timer = setInterval(function(){
+				var stepy = (targety-leadery)/10;
+				var stepx = (targetx-leaderx)/10
+				stepy = (stepy>0)?(Math.ceil(stepy)):(Math.floor(stepy));
+				stepx = (stepx>0)?(Math.ceil(stepx)):(Math.floor(stepx));
+				leadery = leadery + stepy;
+				leaderx = leaderx + stepx;
+				img.style.top = leadery + "px";
+				img.style.left = leaderx + "px";
+				if(Math.abs(targety-leadery)<Math.abs(stepy)&&Math.abs(targetx-leaderx)<Math.abs(stepx)){
+					img.style.top = targety + "px";
+					img.style.left = targetx + "px";
+					clearInterval(timer);
+				}
+			},10);
+		}
+
+	}
+</script>
+</head>
+    <body>
+    	<img src="11image/img.jpg" alt="" />
+    </body>
+</html>
